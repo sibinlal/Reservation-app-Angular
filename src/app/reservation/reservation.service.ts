@@ -23,6 +23,8 @@ export class ReservationService {
 
   addReservation(reservation: ReservationModel): void { 
     if(reservation) {
+      let newId = Date.now() + Math.floor(Math.random() * 1000);
+      reservation.id = newId.toString();
       this.reservations.push(reservation);
       localStorage.setItem("reservations", JSON.stringify(this.reservations));
     }
@@ -30,15 +32,15 @@ export class ReservationService {
 
   deleteReservation(id: String): void {
     let index = this.reservations.findIndex(res => res.id === id);
-    if(index){
+    if(index != null && index != undefined){
       this.reservations.splice(index, 1);
       localStorage.setItem("reservations", JSON.stringify(this.reservations));
     }
   }
 
-  updateReservation(updatedReservation: ReservationModel): void {
-    let index = this.reservations.findIndex(res => res.id === updatedReservation.id);
-    if(index){
+  updateReservation(id: string, updatedReservation: ReservationModel): void {
+    let index = this.reservations.findIndex(res => res.id === id);
+    if(index != null && index != undefined){
       this.reservations[index] = updatedReservation;
       localStorage.setItem("reservations", JSON.stringify(this.reservations));
     }

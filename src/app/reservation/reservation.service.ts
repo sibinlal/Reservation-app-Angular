@@ -8,10 +8,13 @@ export class ReservationService {
 
   private reservations: ReservationModel[] = [];
 
+// We are removing local storage and using mock-api
+
+ /*  
   constructor() { 
     let savedReservations = localStorage.getItem("reservations");
     this.reservations = savedReservations ? JSON.parse(savedReservations) :  [];
-  }
+  } */
 
   getAllReservations(): ReservationModel[] {
     return this.reservations;
@@ -26,7 +29,7 @@ export class ReservationService {
       let newId = Date.now() + Math.floor(Math.random() * 1000);
       reservation.id = newId.toString();
       this.reservations.push(reservation);
-      localStorage.setItem("reservations", JSON.stringify(this.reservations));
+     // localStorage.setItem("reservations", JSON.stringify(this.reservations));
     }
   }
 
@@ -34,7 +37,7 @@ export class ReservationService {
     let index = this.reservations.findIndex(res => res.id === id);
     if(index != null && index != undefined){
       this.reservations.splice(index, 1);
-      localStorage.setItem("reservations", JSON.stringify(this.reservations));
+      //localStorage.setItem("reservations", JSON.stringify(this.reservations));
     }
   }
 
@@ -42,7 +45,7 @@ export class ReservationService {
     let index = this.reservations.findIndex(res => res.id === id);
     if(index != null && index != undefined){
       this.reservations[index] = updatedReservation;
-      localStorage.setItem("reservations", JSON.stringify(this.reservations));
+      //localStorage.setItem("reservations", JSON.stringify(this.reservations));
     }
   }
 

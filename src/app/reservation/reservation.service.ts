@@ -37,29 +37,41 @@ export class ReservationService {
     //return this.reservations.find(res => res.id === id);
   }  
 
-  addReservation(reservation: ReservationModel): void { 
+  addReservation(reservation: ReservationModel): Observable<void> { 
+    /** 
     if(reservation) {
       let newId = Date.now() + Math.floor(Math.random() * 1000);
       reservation.id = newId.toString();
       this.reservations.push(reservation);
      localStorage.setItem("reservations", JSON.stringify(this.reservations));
     }
+     **/
+
+    return this.http.post<void>(this.apiUrl + "/reservation", reservation);
   }
 
-  deleteReservation(id: String): void {
+  deleteReservation(id: String): Observable<void> {
+
+    return this.http.delete<void>(this.apiUrl + "/reservation/" + id);
+    /*
     let index = this.reservations.findIndex(res => res.id === id);
     if(index != null && index != undefined){
       this.reservations.splice(index, 1);
       localStorage.setItem("reservations", JSON.stringify(this.reservations));
     }
+      **/
   }
 
-  updateReservation(id: string, updatedReservation: ReservationModel): void {
+  updateReservation(id: string, updatedReservation: ReservationModel): Observable<void> {
+    /** 
     let index = this.reservations.findIndex(res => res.id === id);
     if(index != null && index != undefined){
       this.reservations[index] = updatedReservation;
       localStorage.setItem("reservations", JSON.stringify(this.reservations));
     }
+      */
+
+    return this.http.put<void>(this.apiUrl + "/reservation/" + id, updatedReservation);
   }
 
 }

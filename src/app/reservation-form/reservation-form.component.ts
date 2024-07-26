@@ -30,10 +30,13 @@ export class ReservationFormComponent implements OnInit {
   }
 
   loadReservationFormForEdit(id: string) {
-    let reservation = this.reservationService.getReservation(id);
+   this.reservationService.getReservation(id).subscribe(reservation => {
     if (reservation) {
       this.reservationForm.patchValue(reservation);
     }
+    }
+    );
+   
   }
 
   createReservationForm() {
